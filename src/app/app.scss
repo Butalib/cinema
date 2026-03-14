@@ -1,0 +1,60 @@
+body {
+  background: #020817;
+  color: #e2e8f0;
+  margin: 0;
+  font-family: "Inter", sans-serif;
+}
+.app-layout {
+
+  display: flex;
+
+  height: 100vh;
+
+  background: #020817;
+}
+
+/* sidebar */
+
+app-side-bar {
+
+  width: 260px;
+
+  height: 100vh;
+
+  flex-shrink: 0;
+}
+
+/* main area */
+
+.main-area {
+
+  flex: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+/* topbar */
+
+app-top-bar {
+
+  height: 64px;
+
+  flex-shrink: 0;
+}
+
+/* content */
+
+.page-content {
+
+  flex: 1;
+
+  overflow-y: auto;
+
+  padding: 24px;
+
+  background: #020817;
+}

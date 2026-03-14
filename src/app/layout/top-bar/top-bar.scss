@@ -1,0 +1,103 @@
+.topbar {
+
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 24px;
+
+  background: #020817;
+
+  border-bottom: 1px solid #0f172a;
+}
+
+/* Title */
+
+.title {
+
+  font-size: 20px;
+  font-weight: 600;
+
+  color: #e2e8f0;
+}
+
+/* Right Actions */
+
+.actions {
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Notification Button */
+
+.icon-btn {
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 10px;
+
+  border: none;
+
+  background: #0f172a;
+
+  color: #cbd5f5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition: all .2s ease;
+}
+
+.icon-btn:hover {
+
+  background: #1e293b;
+}
+
+/* Profile */
+
+.profile {
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  background: #0f172a;
+
+  padding: 6px 12px;
+
+  border-radius: 10px;
+}
+
+.avatar {
+
+  width: 32px;
+  height: 32px;
+
+  border-radius: 50%;
+
+  background: #06b6d4;
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+}
+
+.username {
+
+  font-size: 14px;
+
+  color: #e2e8f0;
+}
