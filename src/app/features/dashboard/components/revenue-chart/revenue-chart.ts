@@ -78,7 +78,11 @@ export class RevenueChartComponent implements AfterViewInit, OnDestroy {
           x: {
             grid: { display: false },
             border: { color: '#1e293b' },
-            ticks: { color: '#94a3b8', font: { size: 12 } },
+            ticks: {
+              color: '#94a3b8',
+              font: (ctx) => ({ size: ctx.chart.width < 400 ? 10 : 12 }),
+              maxRotation: 0,
+            },
           },
           y: {
             min: 0,
@@ -87,7 +91,8 @@ export class RevenueChartComponent implements AfterViewInit, OnDestroy {
             border: { dash: [4, 4], color: 'transparent' },
             ticks: {
               color: '#94a3b8',
-              font: { size: 12 },
+              font: (ctx) => ({ size: ctx.chart.width < 400 ? 10 : 12 }),
+              maxTicksLimit: 5,
               callback: (val) => `$${Number(val) / 1000}k`,
             },
           },

@@ -58,3 +58,13 @@
     height: 220px;
   }
 }
+
+@media (max-width: 480px) {
+  .chart-card {
+    padding: 12px;
+  }
+
+  .chart-wrapper {
+    height: 180px;
+  }
+}
