@@ -1,0 +1,1 @@
+import{Pa as a,Qa as s,eb as m,xa as n}from"./chunk-JJI4NQNL.js";import"./chunk-2NFLSA4Y.js";var o=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=n({type:t,selectors:[["app-payments"]],decls:2,vars:0,template:function(e,i){e&1&&(a(0,"p"),m(1,"payments works!"),s())},encapsulation:2})};export{o as Payments};
