@@ -1,0 +1,276 @@
+// ─── Page Layout ─────────────────────────────────────────────────────────────
+
+.movies-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+// ─── Page Header ─────────────────────────────────────────────────────────────
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #e2e8f0;
+  line-height: 1.2;
+}
+
+// ─── Toolbar ──────────────────────────────────────────────────────────────────
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.search-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 240px;
+  max-width: 420px;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: #475569;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 14px 10px 40px;
+  background: #0b1220;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  color: #e2e8f0;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+
+  &::placeholder { color: #475569; }
+  &:focus { border-color: #06b6d4; }
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  background: transparent;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: #334155;
+  }
+
+  i { font-size: 14px; }
+}
+
+.add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: #06b6d4;
+  border: none;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+
+  &:hover {
+    background: #0891b2;
+    transform: translateY(-1px);
+  }
+
+  i { font-size: 14px; }
+}
+
+// ─── Stats Cards ─────────────────────────────────────────────────────────────
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.stat-card {
+  background: #0b1220;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: #22d3ee;
+  }
+}
+
+.stat-label {
+  font-size: 13px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 30px;
+  font-weight: 700;
+  color: #e2e8f0;
+  line-height: 1;
+}
+
+// ─── Table Card ──────────────────────────────────────────────────────────────
+
+.table-card {
+  background: #0b1220;
+  border: 1px solid #1e293b;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.movies-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead th {
+    background: #0d1829;
+    padding: 14px 20px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: left;
+    border-bottom: 1px solid #1e293b;
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #1e293b;
+    transition: background 0.15s;
+
+    &:last-child { border-bottom: none; }
+    &:hover { background: rgba(6, 182, 212, 0.04); }
+  }
+
+  td {
+    padding: 14px 20px;
+    font-size: 14px;
+    color: #94a3b8;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+}
+
+.cell-name {
+  font-weight: 600;
+  color: #e2e8f0 !important;
+}
+
+.cell-muted { color: #64748b !important; }
+
+.cell-rating {
+  color: #e2e8f0 !important;
+  font-weight: 500;
+}
+
+// ─── Status Badge ─────────────────────────────────────────────────────────────
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-active   { background: rgba(34, 197, 94, 0.12);  color: #22c55e; }
+.status-coming   { background: rgba(234, 179, 8, 0.12);   color: #eab308; }
+.status-inactive { background: rgba(239, 68, 68, 0.12);  color: #ef4444; }
+
+// ─── Icon Action Buttons ──────────────────────────────────────────────────────
+
+.icon-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  font-size: 14px;
+
+  &:hover { transform: scale(1.1); }
+}
+
+.edit-btn {
+  background: rgba(6, 182, 212, 0.08);
+  border-color: rgba(6, 182, 212, 0.2);
+  color: #06b6d4;
+
+  &:hover { background: rgba(6, 182, 212, 0.2); }
+}
+
+.delete-btn {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+
+  &:hover { background: rgba(239, 68, 68, 0.2); }
+}
+
+// ─── Responsive ──────────────────────────────────────────────────────────────
+
+@media (max-width: 1100px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stat-value { font-size: 24px; }
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .search-wrapper { max-width: 100%; }
+  .toolbar-actions { justify-content: flex-end; }
+}

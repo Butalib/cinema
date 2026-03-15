@@ -1,1 +1,28 @@
 @import "bootstrap-icons/font/bootstrap-icons.css";
+
+/* ── Custom Scrollbar (global) ──────────────────────────────────────────── */
+
+/* WebKit / Blink (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b1320;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4b6cb7;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6f8fe8;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #4b6cb7 #0b1320;
+}

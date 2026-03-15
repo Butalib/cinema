@@ -1,1 +1,41 @@
-<p>dashboard works!</p>
+<section class="dashboard-page" aria-labelledby="dashboard-heading">
+
+  <div class="stats-grid">
+    <app-stat-card
+      icon="bi-currency-dollar"
+      value="$67,450"
+      label="Total Revenue"
+      trend="+12.5%"
+      trendType="up"
+    ></app-stat-card>
+
+    <app-stat-card
+      icon="bi-ticket"
+      value="1,544"
+      label="Total Bookings"
+      trend="+8.2%"
+      trendType="up"
+    ></app-stat-card>
+
+    <app-stat-card
+      icon="bi-people"
+      value="3,847"
+      label="Active Users"
+      trend="-2.4%"
+      trendType="down"
+    ></app-stat-card>
+
+    <app-stat-card
+      icon="bi-graph-up"
+      value="78.5%"
+      label="Occupancy Rate"
+      trend="+5.3%"
+      trendType="up"
+    ></app-stat-card>
+  </div>
+
+  <div class="charts-grid">
+    <app-revenue-chart></app-revenue-chart>
+    <app-bookings-chart></app-bookings-chart>
+  </div>
+</section>

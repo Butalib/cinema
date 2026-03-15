@@ -1,1 +1,84 @@
-<p>branches works!</p>
+<section class="branches-page">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="page-header-info">
+            <!-- <h2 class="page-title">Branches</h2> -->
+            <p class="page-subtitle">Showing {{ branches.length }} branches</p>
+        </div>
+        <button class="add-btn">
+            <i class="bi bi-plus-lg"></i>
+            <span>Add Branch</span>
+        </button>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <span class="stat-label">Total Branches</span>
+            <span class="stat-value">{{ stats.totalBranches }}</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Total Halls</span>
+            <span class="stat-value">{{ stats.totalHalls }}</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Total Screens</span>
+            <span class="stat-value">{{ stats.totalScreens }}</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Total Capacity</span>
+            <span class="stat-value">{{ stats.totalCapacity }}</span>
+        </div>
+    </div>
+
+    <!-- Branches Table -->
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="branches-table">
+                <thead>
+                    <tr>
+                        <th>Branch ID</th>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Halls</th>
+                        <th>Total Capacity</th>
+                        <th>Status</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (branch of branches; track branch.id) {
+                    <tr (click)="viewBranch(branch.id)" class="clickable-row">
+                        <td class="cell-id">{{ branch.id }}</td>
+                        <td class="cell-name">{{ branch.name }}</td>
+                        <td class="cell-muted">{{ branch.location }}</td>
+                        <td class="cell-muted">{{ branch.halls }}</td>
+                        <td class="cell-muted">{{ branch.capacity.toLocaleString() }}</td>
+                        <td>
+                            <span class="status-badge" [class.status-active]="branch.status === 'Active'"
+                                [class.status-inactive]="branch.status === 'Inactive'">
+                                {{ branch.status }}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="icon-btn edit-btn" (click)="viewBranch(branch.id)"
+                                aria-label="Edit {{ branch.name }}">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="icon-btn delete-btn" (click)="deleteBranch(branch.id, $event)"
+                                aria-label="Delete {{ branch.name }}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>

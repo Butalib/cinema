@@ -1,103 +1,136 @@
 .topbar {
-
   height: 64px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   padding: 0 24px;
+  background: #0B1220;
+  border-bottom: 1px solid #1e293b;
+  gap: 12px;
+}
 
-  background: #020817;
+/* Left section */
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-  border-bottom: 1px solid #0f172a;
+/* Hamburger menu button */
+.menu-btn {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  background: #0f172a;
+  color: #94a3b8;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 20px;
+
+  &:hover {
+    background: #1e293b;
+    color: #22d3ee;
+  }
 }
 
 /* Title */
-
 .title {
-
   font-size: 20px;
   font-weight: 600;
-
   color: #e2e8f0;
+  white-space: nowrap;
 }
 
 /* Right Actions */
-
 .actions {
-
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
 /* Notification Button */
-
 .icon-btn {
-
   width: 40px;
   height: 40px;
-
   border-radius: 10px;
-
   border: none;
-
   background: #0f172a;
-
-  color: #cbd5f5;
-
+  color: #cbd5e1;
   display: flex;
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
-
-  transition: all .2s ease;
+  transition: all 0.2s ease;
 }
 
 .icon-btn:hover {
-
   background: #1e293b;
+  color: #22d3ee;
 }
 
 /* Profile */
-
 .profile {
-
   display: flex;
   align-items: center;
-
   gap: 10px;
-
   background: #0f172a;
-
   padding: 6px 12px;
-
   border-radius: 10px;
 }
 
 .avatar {
-
   width: 32px;
   height: 32px;
-
   border-radius: 50%;
-
   background: #06b6d4;
-
   color: white;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-weight: 600;
+  flex-shrink: 0;
 }
 
 .username {
-
   font-size: 14px;
-
   color: #e2e8f0;
+  white-space: nowrap;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 992px) {
+  .menu-btn {
+    display: flex;
+  }
+
+  .topbar {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .topbar {
+    padding: 0 12px;
+  }
+
+  .actions {
+    gap: 8px;
+  }
+
+  .profile {
+    padding: 6px;
+  }
+
+  .username {
+    display: none;
+  }
+
+  .title {
+    font-size: 16px;
+  }
 }

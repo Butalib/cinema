@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { SidebarService } from '../sidebar.service';
 
 interface SidebarItem {
   label: string;
@@ -15,6 +17,17 @@ interface SidebarItem {
   styleUrl: './side-bar.scss',
 })
 export class SideBar {
+  protected readonly sidebarService = inject(SidebarService);
+  private readonly router = inject(Router);
+
+  constructor() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.sidebarService.close();
+    });
+  }
+
   protected readonly menuItems: SidebarItem[] = [
 
 

@@ -1,1 +1,96 @@
-<p>bookings works!</p>
+<section class="bookings-page">
+
+    <!-- Search & Action Controls -->
+    <div class="controls-bar">
+        <div class="search-wrapper">
+            <i class="bi bi-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Search bookings by ID, customer, or movie..."
+                [value]="searchQuery()" (input)="searchQuery.set($any($event.target).value)" />
+        </div>
+        <div class="action-btns">
+            <button class="action-btn">
+                <i class="bi bi-funnel"></i>
+                <span>Filters</span>
+            </button>
+            <button class="action-btn">
+                <i class="bi bi-download"></i>
+                <span>Export</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <span class="kpi-label">Total Bookings</span>
+            <span class="kpi-value">{{ stats().total }}</span>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-label">Confirmed</span>
+            <span class="kpi-value kpi-cyan">{{ stats().confirmed }}</span>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-label">Cancelled</span>
+            <span class="kpi-value kpi-red">{{ stats().cancelled }}</span>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-label">Today's Revenue</span>
+            <span class="kpi-value kpi-green">{{ formatAmount(stats().todayRevenue) }}</span>
+        </div>
+    </div>
+
+    <!-- Bookings Table -->
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="bookings-table">
+                <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Customer</th>
+                        <th>Movie</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Seats</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Branch</th>
+                        <th>View</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (booking of filteredBookings(); track booking.id) {
+                    <tr>
+                        <td class="cell-id">{{ booking.id }}</td>
+                        <td class="cell-name">{{ booking.customerName }}</td>
+                        <td class="cell-movie">{{ booking.movieTitle }}</td>
+                        <td class="cell-muted">{{ formatDate(booking.showtimeDate) }}</td>
+                        <td class="cell-time">{{ formatTime(booking.showtimeTime) }}</td>
+                        <td class="cell-muted">{{ booking.seats.length }} {{ booking.seats.length === 1 ? 'seat' :
+                            'seats' }}</td>
+                        <td class="cell-amount">{{ formatAmount(booking.amount) }}</td>
+                        <td>
+                            <span class="status-badge" [class.status-confirmed]="booking.status === 'Confirmed'"
+                                [class.status-completed]="booking.status === 'Completed'"
+                                [class.status-cancelled]="booking.status === 'Cancelled'">
+                                {{ booking.status }}
+                            </span>
+                        </td>
+                        <td class="cell-muted">{{ booking.branchName }}</td>
+                        <td>
+                            <button class="view-btn" (click)="openModal(booking)"
+                                [attr.aria-label]="'View ' + booking.id">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    } @empty {
+                    <tr>
+                        <td colspan="10" class="no-results">No bookings found matching your search.</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>

@@ -1,1 +1,210 @@
-<p>users works!</p>
+<section class="users-page">
+
+    <!-- Search & Action Controls -->
+    <div class="controls-bar">
+        <div class="search-wrapper">
+            <i class="bi bi-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Search users by name, email, or ID..."
+                [value]="searchQuery()" (input)="searchQuery.set($any($event.target).value)" />
+        </div>
+
+        <div class="action-btns">
+            <button class="action-btn">
+                <i class="bi bi-funnel"></i>
+                <span>Filters</span>
+            </button>
+            <button class="action-btn">
+                <i class="bi bi-download"></i>
+                <span>Export</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <span class="kpi-label">Total Users</span>
+            <span class="kpi-value">3,847</span>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-label">Active Users</span>
+            <span class="kpi-value kpi-green">3,521</span>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-label">New This Month</span>
+            <span class="kpi-value kpi-cyan">147</span>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-label">Avg. Spend</span>
+            <span class="kpi-value">$87.50</span>
+        </div>
+    </div>
+
+    <!-- Users Table -->
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Bookings</th>
+                        <th>Total Spent</th>
+                        <th>Status</th>
+                        <th>View</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (user of filteredUsers(); track user.id) {
+                    <tr>
+                        <td class="cell-id">{{ user.id }}</td>
+                        <td class="cell-name">{{ user.name }}</td>
+                        <td class="cell-email">{{ user.email }}</td>
+                        <td>{{ user.phone }}</td>
+                        <td>{{ user.bookings }}</td>
+                        <td>${{ user.totalSpent }}</td>
+                        <td>
+                            <span class="status-badge" [class.status-active]="user.status === 'Active'"
+                                [class.status-inactive]="user.status === 'Inactive'">
+                                {{ user.status }}
+                                <i class="bi bi-chevron-down"></i>
+                            </span>
+                        </td>
+                        <td>
+                            <button class="view-btn" (click)="openModal(user)" aria-label="View {{ user.name }}">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    } @empty {
+                    <tr>
+                        <td colspan="8" class="no-results">No users found matching your search.</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+
+<!-- User Details Modal -->
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content user-modal">
+
+            @if (selectedUser(); as user) {
+
+            <!-- Header -->
+            <div class="modal-header user-modal-header">
+                <h5 class="modal-title" id="userModalLabel">{{ user.id }} Details</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body user-modal-body">
+
+                <!-- Avatar + Name + Status -->
+                <div class="user-hero">
+                    <div class="user-avatar">{{ user.initials }}</div>
+                    <div class="user-hero-info">
+                        <span class="user-hero-name">{{ user.name }}</span>
+                        <span class="status-badge" [class.status-active]="user.status === 'Active'"
+                            [class.status-inactive]="user.status === 'Inactive'">
+                            {{ user.status }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Info Rows -->
+                <div class="info-list">
+                    <div class="info-row">
+                        <i class="bi bi-envelope info-icon"></i>
+                        <div class="info-content">
+                            <span class="info-label">Email</span>
+                            <div class="info-value-row">
+                                <span class="info-value">{{ user.email }}</span>
+                                <span class="confirmed-badge" [class.unconfirmed]="!user.emailConfirmed">
+                                    {{ user.emailConfirmed ? 'Confirmed' : 'Unconfirmed' }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <i class="bi bi-telephone info-icon"></i>
+                        <div class="info-content">
+                            <span class="info-label">Phone</span>
+                            <span class="info-value">{{ user.phone }}</span>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <i class="bi bi-geo-alt info-icon"></i>
+                        <div class="info-content">
+                            <span class="info-label">Location</span>
+                            <span class="info-value">{{ user.location }}</span>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <i class="bi bi-person info-icon"></i>
+                        <div class="info-content">
+                            <span class="info-label">Gender</span>
+                            <span class="info-value">{{ user.gender }}</span>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <i class="bi bi-calendar info-icon"></i>
+                        <div class="info-content">
+                            <span class="info-label">Date of Birth</span>
+                            <span class="info-value">{{ user.dob }}</span>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <i class="bi bi-clock-history info-icon"></i>
+                        <div class="info-content">
+                            <span class="info-label">Member Since</span>
+                            <span class="info-value">{{ user.joined }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Action Buttons -->
+                <div class="modal-actions">
+                    <button class="modal-action-btn">
+                        <div class="modal-action-left">
+                            <i class="bi bi-ticket-perforated modal-action-icon"></i>
+                            <span>View User Tickets</span>
+                        </div>
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+
+                    <button class="modal-action-btn">
+                        <div class="modal-action-left">
+                            <i class="bi bi-bookmark modal-action-icon"></i>
+                            <span>View User Bookings</span>
+                        </div>
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+
+                    <button class="modal-action-btn">
+                        <div class="modal-action-left">
+                            <i class="bi bi-credit-card modal-action-icon"></i>
+                            <span>View User Payments</span>
+                        </div>
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+                </div>
+
+            </div>
+            }
+
+        </div>
+    </div>
+</div>

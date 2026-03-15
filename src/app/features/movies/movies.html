@@ -1,1 +1,101 @@
-<p>movies works!</p>
+<section class="movies-page">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h2 class="page-title">Movies</h2>
+    </div>
+
+    <!-- Search & Actions Toolbar -->
+    <div class="toolbar">
+        <div class="search-wrapper">
+            <i class="bi bi-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Search films by title, genre, or ID..."
+                [value]="searchQuery()" (input)="searchQuery.set($any($event.target).value)" />
+        </div>
+        <div class="toolbar-actions">
+            <button class="toolbar-btn">
+                <i class="bi bi-funnel"></i>
+                <span>Filters</span>
+            </button>
+            <button class="toolbar-btn">
+                <i class="bi bi-download"></i>
+                <span>Export</span>
+            </button>
+            <button class="add-btn" (click)="addMovie()">
+                <i class="bi bi-plus-lg"></i>
+                <span>Add Film</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <span class="stat-label">Total Movies</span>
+            <span class="stat-value">{{ stats.totalMovies }}</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Now Showing</span>
+            <span class="stat-value">{{ stats.nowShowing }}</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Coming Soon</span>
+            <span class="stat-value">{{ stats.comingSoon }}</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Average Rating</span>
+            <span class="stat-value">{{ stats.averageRating }}</span>
+        </div>
+    </div>
+
+    <!-- Movies Table -->
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="movies-table">
+                <thead>
+                    <tr>
+                        <th>Movie Title</th>
+                        <th>Release Date</th>
+                        <th>Duration</th>
+                        <th>Rating</th>
+                        <th>Revenue</th>
+                        <th>Status</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (movie of filteredMovies(); track movie.id) {
+                    <tr>
+                        <td class="cell-name">{{ movie.title }}</td>
+                        <td class="cell-muted">{{ movie.releaseDate }}</td>
+                        <td class="cell-muted">{{ movie.duration }}</td>
+                        <td class="cell-rating">⭐ {{ movie.rating }}</td>
+                        <td class="cell-muted">{{ formatRevenue(movie.revenue) }}</td>
+                        <td>
+                            <span class="status-badge" [class.status-active]="movie.status === 'Active'"
+                                [class.status-coming]="movie.status === 'Coming Soon'"
+                                [class.status-inactive]="movie.status === 'Inactive'">
+                                {{ movie.status }}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="icon-btn edit-btn" (click)="editMovie(movie.id, $event)"
+                                aria-label="Edit {{ movie.title }}">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="icon-btn delete-btn" (click)="deleteMovie(movie.id, $event)"
+                                aria-label="Delete {{ movie.title }}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>

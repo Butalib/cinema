@@ -1,1 +1,97 @@
-<p>showtimes works!</p>
+<section class="showtimes-page">
+
+
+    <!-- Search & Actions Toolbar -->
+    <div class="toolbar">
+        <div class="search-wrapper">
+            <i class="bi bi-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Search by movie, branch, hall, or ID..."
+                [value]="searchQuery()" (input)="searchQuery.set($any($event.target).value)" />
+        </div>
+        <div class="toolbar-actions">
+            <button class="toolbar-btn" [class.toolbar-btn-active]="todayOnly()" (click)="toggleToday()">
+                <i class="bi bi-calendar-check"></i>
+                <span>Today</span>
+            </button>
+            <button class="toolbar-btn">
+                <i class="bi bi-funnel"></i>
+                <span>Filters</span>
+            </button>
+            <button class="toolbar-btn">
+                <i class="bi bi-download"></i>
+                <span>Export</span>
+            </button>
+            <button class="add-btn" (click)="addShowtime()">
+                <i class="bi bi-plus-lg"></i>
+                <span>Add Showtime</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <span class="stat-label">Today's Shows</span>
+            <span class="stat-value">{{ stats().todayShows }}</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Total Seats</span>
+            <span class="stat-value">{{ stats().totalSeats | number }}</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Booked Seats</span>
+            <span class="stat-value">{{ stats().bookedSeats | number }}</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Occupancy Rate</span>
+            <span class="stat-value">{{ stats().occupancy }}%</span>
+        </div>
+    </div>
+
+    <!-- Showtimes Table -->
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="showtimes-table">
+                <thead>
+                    <tr>
+                        <th>Showtime ID</th>
+                        <th>Movie</th>
+                        <th>Branch</th>
+                        <th>Hall</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Price</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (st of filteredShowtimes(); track st.id) {
+                    <tr>
+                        <td class="cell-id">{{ st.id }}</td>
+                        <td class="cell-name">{{ movieName(st.movieId) }}</td>
+                        <td class="cell-muted">{{ branchName(st.branchId) }}</td>
+                        <td class="cell-muted">{{ hallName(st.hallId) }}</td>
+                        <td class="cell-muted">{{ formatDate(st.date) }}</td>
+                        <td class="cell-time">{{ formatTime(st.time) }}</td>
+                        <td class="cell-price">{{ formatPrice(st.ticketPrice) }}</td>
+                        <td>
+                            <button class="icon-btn edit-btn" (click)="editShowtime(st.id, $event)"
+                                [attr.aria-label]="'Edit ' + st.id">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="icon-btn delete-btn" (click)="deleteShowtime(st.id, $event)"
+                                [attr.aria-label]="'Delete ' + st.id">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>

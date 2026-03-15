@@ -1,0 +1,19 @@
+<div class="stat-card">
+    <div class="card-top">
+        <div class="icon-box">
+            <i class="bi" [class]="'bi ' + icon()"></i>
+        </div>
+
+        <div class="trend" [class.trend-up]="trendType() === 'up'" [class.trend-down]="trendType() === 'down'">
+            {{ trend() }}
+        </div>
+    </div>
+
+    <div class="value">
+        {{ value() }}
+    </div>
+
+    <div class="label">
+        {{ label() }}
+    </div>
+</div>

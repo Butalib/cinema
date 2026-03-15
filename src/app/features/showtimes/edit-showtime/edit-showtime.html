@@ -1,0 +1,102 @@
+@if (showtime()) {
+<section class="form-page">
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-nav" aria-label="breadcrumb">
+        <a routerLink="/showtimes" class="breadcrumb-link">
+            <i class="bi bi-arrow-left"></i>
+            Back to Showtimes
+        </a>
+    </nav>
+
+    <h2 class="form-page-title">Edit Showtime</h2>
+
+    <!-- Conflict Error -->
+    @if (conflictError()) {
+    <div class="conflict-alert">
+        <i class="bi bi-exclamation-triangle"></i>
+        <span>{{ conflictError() }}</span>
+    </div>
+    }
+
+    <!-- Schedule Details Card -->
+    <div class="form-card">
+        <div class="form-card-header">
+            <i class="bi bi-calendar-event"></i>
+            <span>Showtime Details</span>
+        </div>
+        <div class="form-card-body">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">Select Movie</label>
+                    <select class="form-control" [ngModel]="movieId()"
+                        (ngModelChange)="movieId.set($event); clearConflict()">
+                        <option value="" disabled>Choose a movie</option>
+                        @for (movie of movies; track movie.id) {
+                        <option [value]="movie.id">{{ movie.title }}</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Branch</label>
+                    <select class="form-control" [ngModel]="branchId()" (ngModelChange)="onBranchChange($event)">
+                        <option value="" disabled>Choose a branch</option>
+                        @for (branch of branches; track branch.id) {
+                        <option [value]="branch.id">{{ branch.name }}</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Hall</label>
+                    <select class="form-control" [ngModel]="hallId()"
+                        (ngModelChange)="hallId.set($event); clearConflict()"
+                        [attr.disabled]="filteredHalls().length === 0 ? true : null">
+                        <option value="" disabled>Choose a hall</option>
+                        @for (hall of filteredHalls(); track hall.id) {
+                        <option [value]="hall.id">{{ hall.name }} ({{ hall.type }})</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Date</label>
+                    <input type="date" class="form-control" [ngModel]="date()"
+                        (ngModelChange)="date.set($event); clearConflict()" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Time</label>
+                    <input type="time" class="form-control" [ngModel]="time()"
+                        (ngModelChange)="time.set($event); clearConflict()" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Ticket Price ($)</label>
+                    <input type="number" class="form-control" placeholder="0.00" min="0" step="0.50"
+                        [ngModel]="ticketPrice()" (ngModelChange)="ticketPrice.set($event)" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Language</label>
+                    <select class="form-control" [ngModel]="language()" (ngModelChange)="language.set($event)">
+                        <option value="English">English</option>
+                        <option value="Arabic">Arabic</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+        <button class="btn-primary" (click)="submit()">
+            <i class="bi bi-check-lg"></i>
+            Update Showtime
+        </button>
+        <button class="btn-secondary" (click)="cancel()">Cancel</button>
+    </div>
+
+</section>
+} @else {
+<div class="not-found">
+    <i class="bi bi-calendar-event"></i>
+    <p>Showtime not found.</p>
+    <a routerLink="/showtimes" class="back-link">Back to Showtimes</a>
+</div>
+}

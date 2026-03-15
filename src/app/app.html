@@ -1,9 +1,11 @@
-<!-- <app-top-bar></app-top-bar>
-<app-side-bar></app-side-bar> -->
 <div class="app-layout">
 
+  <!-- Overlay for mobile sidebar -->
+  <div class="sidebar-overlay" [class.active]="sidebarService.isOpen()" (click)="sidebarService.close()">
+  </div>
+
   <!-- Sidebar -->
-  <app-side-bar></app-side-bar>
+  <app-side-bar [class.open]="sidebarService.isOpen()"></app-side-bar>
 
   <!-- Main Area -->
   <div class="main-area">

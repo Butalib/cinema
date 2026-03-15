@@ -1,0 +1,148 @@
+@if (hall(); as hall) {
+<section class="hall-layout-page">
+
+    <!-- Back Button -->
+    <div class="back-row">
+        <button class="back-btn" (click)="goBack()">
+            <i class="bi bi-arrow-left"></i>
+            <span>Back to {{ branch()?.name }}</span>
+        </button>
+    </div>
+
+    <!-- Hall Header Card -->
+    <div class="hall-header-card">
+        <div class="hall-header-icon">
+            <i class="bi bi-camera-reels"></i>
+        </div>
+        <div class="hall-header-info">
+            <h2 class="hall-header-name">{{ hall.name }}</h2>
+            <div class="hall-header-meta">
+                <div class="hall-meta-item">
+                    <i class="bi bi-person-check"></i>
+                    <span>{{ hall.seats }} seats</span>
+                </div>
+                <div class="hall-meta-divider"></div>
+                <div class="hall-meta-item">
+                    <i class="bi bi-grid-3x3"></i>
+                    <span>{{ hall.rows }} rows (A–{{ lastRowLabel(hall.rows) }})</span>
+                </div>
+                <div class="hall-meta-divider"></div>
+                <div class="hall-meta-item">
+                    <i class="bi bi-layout-three-columns"></i>
+                    <span>{{ hall.seatsPerRow }} seats per row</span>
+                </div>
+                <div class="hall-meta-divider"></div>
+                <div class="hall-meta-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>{{ totalActive() }} total active seats</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Layout + Panels -->
+    <div class="layout-area">
+
+        <!-- Seat Grid -->
+        <div class="seat-grid-container">
+            <!-- Screen Indicator -->
+            <div class="screen-indicator">
+                <div class="screen-bar">SCREEN</div>
+                <div class="screen-shadow"></div>
+            </div>
+
+            <!-- Grid -->
+            <div class="seat-grid">
+                @for (rowSeats of seatGrid(); track rowSeats[0].row) {
+                <div class="seat-row">
+                    <span class="row-label">{{ rowSeats[0].row }}</span>
+                    <div class="seat-cells">
+                        @for (seat of rowSeats; track seat.label) {
+                        <button [class]="'seat seat-' + seat.type" [title]="seat.label + ' (' + seat.type + ')'"
+                            [disabled]="seat.type === 'disabled'">
+                            {{ seat.col }}
+                        </button>
+                        }
+                    </div>
+                    <span class="row-label">{{ rowSeats[0].row }}</span>
+                </div>
+                }
+            </div>
+        </div>
+
+        <!-- Side Panels -->
+        <div class="side-panels">
+
+            <!-- Seat Types -->
+            <div class="panel">
+                <h4 class="panel-title">Seat Types</h4>
+                <div class="legend-list">
+                    <div class="legend-item">
+                        <span class="legend-dot dot-standard"></span>
+                        <span class="legend-label">Standard</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot dot-booked"></span>
+                        <span class="legend-label">Booked</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot dot-vip"></span>
+                        <span class="legend-label">VIP ($18)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot dot-disabled"></span>
+                        <span class="legend-label">Disabled</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seat Summary -->
+            <div class="panel">
+                <h4 class="panel-title">Seat Summary</h4>
+                <div class="summary-list">
+                    <div class="summary-row">
+                        <span class="summary-label">
+                            <span class="summary-dot dot-standard"></span>
+                            Standard
+                        </span>
+                        <span class="summary-value">{{ summary().standard }}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">
+                            <span class="summary-dot dot-booked"></span>
+                            Booked
+                        </span>
+                        <span class="summary-value booked-val">{{ summary().booked }}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">
+                            <span class="summary-dot dot-vip"></span>
+                            VIP
+                        </span>
+                        <span class="summary-value vip-val">{{ summary().vip }}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">
+                            <span class="summary-dot dot-disabled"></span>
+                            Disabled
+                        </span>
+                        <span class="summary-value">{{ summary().disabled }}</span>
+                    </div>
+                </div>
+                <div class="total-active">
+                    <span class="total-active-label">Total Active Seats</span>
+                    <span class="total-active-value">{{ totalActive() }}</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+} @else {
+<div class="not-found">
+    <i class="bi bi-camera-reels"></i>
+    <p>Hall not found.</p>
+    <button class="back-link-btn" (click)="goBack()">Go Back</button>
+</div>
+}

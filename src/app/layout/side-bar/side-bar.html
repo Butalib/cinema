@@ -1,30 +1,31 @@
 <aside class="sidebar" aria-label="Sidebar navigation">
-  <div class="logo">
-    <div class="logo-icon" aria-hidden="true" >
-      
-      <i class="bi bi-film"></i>
+  <div class="sidebar-header">
+    <div class="logo">
+      <div class="logo-icon" aria-hidden="true">
+        <i class="bi bi-film"></i>
+      </div>
+
+      <div class="logo-text">
+        <h1>CinemaVerse</h1>
+        <span>Admin Panel</span>
+      </div>
     </div>
 
-    <div class="logo-text">
-      <h1> CinemaVerse</h1>
-      <span>Admin Panel</span>
-    </div>
+    <button class="close-btn" (click)="sidebarService.close()" aria-label="Close menu">
+      <i class="bi bi-x-lg"></i>
+    </button>
   </div>
 
   <nav class="sidebar-nav" aria-label="Primary">
     <ul class="menu">
       @for (item of menuItems; track item.route) {
-        <li>
-          <a
-            [routerLink]="item.route"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            class="menu-item"
-          >
-            <i [class]="'bi ' + item.icon" aria-hidden="true"></i>
-            <span>{{ item.label }}</span>
-          </a>
-        </li>
+      <li>
+        <a [routerLink]="item.route" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+          class="menu-item">
+          <i [class]="'bi ' + item.icon" aria-hidden="true"></i>
+          <span>{{ item.label }}</span>
+        </a>
+      </li>
       }
     </ul>
   </nav>

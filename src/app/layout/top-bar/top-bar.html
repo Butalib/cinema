@@ -1,12 +1,18 @@
 <div class="topbar">
 
-  <div class="title">
-    {{ title() }}
+  <div class="topbar-left">
+    <button class="menu-btn" (click)="sidebarService.toggle()" aria-label="Toggle menu">
+      <i class="bi bi-list"></i>
+    </button>
+
+    <div class="title">
+      {{ title() }}
+    </div>
   </div>
 
   <div class="actions">
 
-    <button class="icon-btn">
+    <button class="icon-btn" aria-label="Notifications">
       <i class="bi bi-bell"></i>
     </button>
 

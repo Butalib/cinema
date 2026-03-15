@@ -1,0 +1,114 @@
+@if (branch(); as branch) {
+<section class="branch-details-page">
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-nav" aria-label="breadcrumb">
+        <a routerLink="/branches" class="breadcrumb-item">Branches</a>
+        <i class="bi bi-chevron-right breadcrumb-sep"></i>
+        <span class="breadcrumb-item active">{{ branch.name }}</span>
+        <i class="bi bi-chevron-right breadcrumb-sep"></i>
+        <span class="breadcrumb-item active">Halls</span>
+    </nav>
+
+    <!-- Branch Hero Card -->
+    <div class="hero-card">
+        <div class="hero-icon">
+            <i class="bi bi-building"></i>
+        </div>
+        <div class="hero-info">
+            <div class="hero-name">{{ branch.name }}</div>
+            <div class="hero-location">
+                <i class="bi bi-geo-alt"></i>
+                <span>{{ branch.location }}</span>
+            </div>
+            <span class="status-badge" [class.status-active]="branch.status === 'Active'"
+                [class.status-inactive]="branch.status === 'Inactive'">
+                {{ branch.status }}
+            </span>
+        </div>
+        <div class="hero-metrics">
+            <div class="hero-metric">
+                <span class="hero-metric-value">{{ halls().length }}</span>
+                <span class="hero-metric-label">Halls</span>
+            </div>
+            <div class="hero-metric-divider"></div>
+            <div class="hero-metric">
+                <span class="hero-metric-value">{{ totalCapacity().toLocaleString() }}</span>
+                <span class="hero-metric-label">Capacity</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen Type Stats -->
+    <div class="screen-stats-grid">
+        @for (stat of screenTypeStats(); track stat.label) {
+        <div [class]="'screen-stat-card ' + stat.colorClass">
+            <div class="screen-stat-header">
+                <i [class]="'bi ' + stat.icon + ' screen-stat-icon'"></i>
+                <span class="screen-stat-label">{{ stat.label }}</span>
+            </div>
+            <div class="screen-stat-body">
+                <div class="screen-stat-row">
+                    <span class="screen-stat-key">Count</span>
+                    <span class="screen-stat-val">{{ stat.count }}</span>
+                </div>
+                <div class="screen-stat-row">
+                    <span class="screen-stat-key">Average Seats</span>
+                    <span class="screen-stat-val">{{ stat.avgSeats }}</span>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+
+    <!-- Cinema Halls Section -->
+    <div class="halls-section">
+        <div class="halls-header">
+            <h3 class="halls-title">Cinema Halls</h3>
+            <button class="add-hall-btn">
+                <i class="bi bi-plus-lg"></i>
+                <span>Add Hall</span>
+            </button>
+        </div>
+
+        <div class="halls-list">
+            @for (hall of halls(); track hall.id) {
+            <div class="hall-card">
+                <div class="hall-main">
+                    <div [class]="'hall-type-dot dot-' + hall.type.toLowerCase().replace(' ', '-')"></div>
+                    <div class="hall-info">
+                        <span class="hall-name">{{ hall.name }}</span>
+                        <div class="hall-meta">
+                            <span><i class="bi bi-person-check"></i> {{ hall.seats }} seats</span>
+                            <span><i class="bi bi-grid-3x3"></i> {{ hall.rows }} rows (A–{{ lastRowLabel(hall.rows) }})</span>
+                            <span><i class="bi bi-layout-three-columns"></i> {{ hall.seatsPerRow }} seats per row</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hall-actions">
+                    <button class="hall-action-btn layout-btn" (click)="viewLayout(hall)">
+                        <i class="bi bi-grid-1x2"></i>
+                        <span>View Layout</span>
+                    </button>
+                    <button class="hall-action-btn">
+                        <i class="bi bi-pencil"></i>
+                        <span>Edit</span>
+                    </button>
+                    <button class="hall-action-btn danger-btn">
+                        <i class="bi bi-trash"></i>
+                        <span>Delete</span>
+                    </button>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+
+</section>
+} @else {
+<div class="not-found">
+    <i class="bi bi-building-x"></i>
+    <p>Branch not found.</p>
+    <a routerLink="/branches" class="back-link">Back to Branches</a>
+</div>
+}
