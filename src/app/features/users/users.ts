@@ -39,7 +39,7 @@ export class Users implements AfterViewInit, OnDestroy {
   private readonly PAGE_SIZE = 6;
   private observer: IntersectionObserver | null = null;
 
-  private readonly sentinel = viewChild<ElementRef<HTMLDivElement>>('sentinel');
+  private readonly sentinel = viewChild.required<ElementRef<HTMLDivElement>>('sentinel');
 
   readonly searchQuery = signal('');
   readonly selectedUser = signal<User | null>(null);
@@ -256,8 +256,7 @@ export class Users implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    const el = this.sentinel()?.nativeElement;
-    if (!el) return;
+    const el = this.sentinel().nativeElement;
 
     this.observer = new IntersectionObserver(
       entries => {
@@ -279,13 +278,14 @@ export class Users implements AfterViewInit, OnDestroy {
 
   openModal(user: User): void {
     this.selectedUser.set(user);
+    // Delay to ensure modal ref is available after signal update renders
     setTimeout(() => {
-      const modalEl = document.getElementById('userModal');
-      if (modalEl) {
-        const existing = (window as any).bootstrap?.Modal?.getInstance(modalEl);
-        const modal = existing ?? new (window as any).bootstrap.Modal(modalEl);
+      const modalEl = document.querySelector('#userModal') as HTMLElement;
+      if (modalEl && (window as any).bootstrap?.Modal) {
+        const modal = (window as any).bootstrap.Modal.getInstance(modalEl)
+          || new (window as any).bootstrap.Modal(modalEl);
         modal.show();
       }
-    });
+    }, 100);
   }
 }
