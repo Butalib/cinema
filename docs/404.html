@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>CinemaVerse</title>
+  <script>
+    // GitHub Pages SPA redirect trick
+    // When GitHub Pages returns 404 for a client-side route,
+    // this script captures the URL and redirects to index.html
+    // with the path encoded in the query string.
+    var segmentCount = 1; // matches baseHref segment count: /cinema/
+    var l = window.location;
+    l.replace(
+      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+      l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/?/' +
+      l.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~') +
+      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+      l.hash
+    );
+  </script>
+</head>
+
+<body></body>
+
+</html>
