@@ -1,1 +1,0 @@
-import{Pa as r,Qa as s,eb as p,xa as o}from"./chunk-JJI4NQNL.js";import"./chunk-2NFLSA4Y.js";var n=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=o({type:t,selectors:[["app-reports"]],decls:2,vars:0,template:function(e,i){e&1&&(r(0,"p"),p(1,"reports works!"),s())},encapsulation:2})};export{n as Reports};
