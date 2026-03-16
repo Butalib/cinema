@@ -10,6 +10,7 @@ import {
   untracked,
   viewChild,
 } from '@angular/core';
+import { UserModal } from './user-modal/user-modal';
 
 export interface User {
   id: string;
@@ -30,7 +31,7 @@ export interface User {
 @Component({
   selector: 'app-users',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [],
+  imports: [UserModal],
   templateUrl: './users.html',
   styleUrl: './users.scss',
 })
