@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { BRANCHES, HALLS, type Branch, type Hall } from '../branches.data';
 
 interface ScreenTypeStat {
@@ -19,20 +18,17 @@ interface ScreenTypeStat {
   styleUrl: './branch-details.scss',
 })
 export class BranchDetails {
-  private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
-  private readonly params = toSignal(this.route.params, { initialValue: {} as Record<string, string> });
+  readonly id = input<string>('');
 
-  readonly branch = computed<Branch | undefined>(() => {
-    const id = this.params()['id'];
-    return BRANCHES.find(b => b.id === id);
-  });
+  readonly branch = computed<Branch | undefined>(() =>
+    BRANCHES.find(b => b.id === this.id())
+  );
 
-  readonly halls = computed<Hall[]>(() => {
-    const id = this.params()['id'];
-    return HALLS.filter(h => h.branchId === id);
-  });
+  readonly halls = computed<Hall[]>(() =>
+    HALLS.filter(h => h.branchId === this.id())
+  );
 
   readonly screenTypeStats = computed<ScreenTypeStat[]>(() => {
     const hs = this.halls();
@@ -57,8 +53,7 @@ export class BranchDetails {
   );
 
   viewLayout(hall: Hall): void {
-    const branchId = this.params()['id'];
-    this.router.navigate(['/branches', branchId, 'halls', hall.id]);
+    this.router.navigate(['/branches', this.id(), 'halls', hall.id]);
   }
 
   goBack(): void {

@@ -42,6 +42,10 @@
 
     <!-- Users Table -->
     <div class="table-card">
+        <div class="table-header">
+            <span class="table-title">Users</span>
+            <span class="table-count">{{ visibleUsers().length }} / {{ filteredUsers().length }}</span>
+        </div>
         <div class="table-responsive">
             <table class="users-table">
                 <thead>
@@ -57,7 +61,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (user of filteredUsers(); track user.id) {
+                    @for (user of visibleUsers(); track user.id) {
                     <tr>
                         <td class="cell-id">{{ user.id }}</td>
                         <td class="cell-name">{{ user.name }}</td>
@@ -86,6 +90,17 @@
                 </tbody>
             </table>
         </div>
+    </div>
+
+    <!-- Infinite Scroll Sentinel -->
+    <div #sentinel class="scroll-sentinel">
+        @if (hasMore()) {
+        <div class="loading-more">
+            <span class="loading-dot"></span>
+            <span class="loading-dot"></span>
+            <span class="loading-dot"></span>
+        </div>
+        }
     </div>
 
 </section>

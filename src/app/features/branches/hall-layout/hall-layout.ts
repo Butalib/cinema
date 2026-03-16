@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { BRANCHES, HALLS, type Branch, type Hall } from '../branches.data';
 
 export type SeatType = 'standard' | 'booked' | 'vip' | 'disabled';
@@ -20,17 +19,17 @@ export interface Seat {
   styleUrl: './hall-layout.scss',
 })
 export class HallLayout {
-  private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
-  private readonly params = toSignal(this.route.params, { initialValue: {} as Record<string, string> });
+  readonly branchId = input<string>('');
+  readonly hallId = input<string>('');
 
   readonly branch = computed<Branch | undefined>(() =>
-    BRANCHES.find(b => b.id === this.params()['branchId'])
+    BRANCHES.find(b => b.id === this.branchId())
   );
 
   readonly hall = computed<Hall | undefined>(() =>
-    HALLS.find(h => h.id === this.params()['hallId'])
+    HALLS.find(h => h.id === this.hallId())
   );
 
   readonly rows = computed<string[]>(() => {
@@ -73,15 +72,12 @@ export class HallLayout {
   });
 
   private getSeatType(hall: Hall, row: string, col: number): SeatType {
-    const rowIndex = row.charCodeAt(0) - 65; // 0 = A, 1 = B, ...
+    const rowIndex = row.charCodeAt(0) - 65;
 
-    // VIP hall: all seats are VIP type
     if (hall.type === 'VIP') return 'vip';
 
-    // Disabled: first and last seat of last row
     if (rowIndex === hall.rows - 1 && (col === 1 || col === hall.seatsPerRow)) return 'disabled';
 
-    // Booked: deterministic pattern using row + col hash
     const hash = rowIndex * 31 + col * 17;
     if (hash % 13 === 0 || hash % 19 === 0) return 'booked';
 
@@ -89,8 +85,7 @@ export class HallLayout {
   }
 
   goBack(): void {
-    const branchId = this.params()['branchId'];
-    this.router.navigate(['/branches', branchId]);
+    this.router.navigate(['/branches', this.branchId()]);
   }
 
   lastRowLabel(rows: number): string {

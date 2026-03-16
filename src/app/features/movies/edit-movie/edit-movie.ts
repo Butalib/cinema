@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MOVIES, type Movie } from '../movies.data';
 
@@ -12,15 +11,13 @@ import { MOVIES, type Movie } from '../movies.data';
   styleUrl: './edit-movie.scss',
 })
 export class EditMovie {
-  private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
-  private readonly params = toSignal(this.route.params, { initialValue: {} as Record<string, string> });
+  readonly id = input<string>('');
 
-  readonly movie = computed<Movie | undefined>(() => {
-    const id = this.params()['id'];
-    return MOVIES.find(m => m.id === id);
-  });
+  readonly movie = computed<Movie | undefined>(() =>
+    MOVIES.find(m => m.id === this.id())
+  );
 
   readonly title = signal('');
   readonly genre = signal('');

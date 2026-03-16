@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MOVIES } from '../../movies/movies.data';
 import { BRANCHES, HALLS } from '../../branches/branches.data';
@@ -14,15 +13,13 @@ import { SHOWTIMES, type Showtime } from '../showtimes.data';
   styleUrl: './edit-showtime.scss',
 })
 export class EditShowtime {
-  private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
-  private readonly params = toSignal(this.route.params, { initialValue: {} as Record<string, string> });
+  readonly id = input<string>('');
 
-  readonly showtime = computed<Showtime | undefined>(() => {
-    const id = this.params()['id'];
-    return SHOWTIMES.find(s => s.id === id);
-  });
+  readonly showtime = computed<Showtime | undefined>(() =>
+    SHOWTIMES.find(s => s.id === this.id())
+  );
 
   readonly movies = MOVIES.filter(m => m.status === 'Active');
   readonly branches = BRANCHES.filter(b => b.status === 'Active');
