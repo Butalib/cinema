@@ -36,7 +36,7 @@ export interface User {
   styleUrl: './users.scss',
 })
 export class Users implements AfterViewInit, OnDestroy {
-  private readonly PAGE_SIZE = 6;
+  private readonly PAGE_SIZE = 3;
   private observer: IntersectionObserver | null = null;
 
   private readonly sentinel = viewChild.required<ElementRef<HTMLDivElement>>('sentinel');

@@ -14,15 +14,20 @@
             <!-- Body -->
             <div class="modal-body user-modal-body">
 
-                <!-- Avatar + Name + Status -->
+                <!-- Avatar + Name + ID + Status -->
                 <div class="user-hero">
                     <div class="user-avatar">{{ user.initials }}</div>
                     <div class="user-hero-info">
-                        <span class="user-hero-name">{{ user.name }}</span>
-                        <span class="status-badge" [class.status-active]="user.status === 'Active'"
-                            [class.status-inactive]="user.status === 'Inactive'">
-                            {{ user.status }}
-                        </span>
+                        <div class="user-hero-details">
+                            <span class="user-hero-name">{{ user.name }}</span>
+                            <div class="user-hero-sub">
+                                <span class="user-id">{{ user.id }}</span>
+                                <span class="status-badge" [class.status-active]="user.status === 'Active'"
+                                    [class.status-inactive]="user.status === 'Inactive'">
+                                    {{ user.status }}
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -56,29 +61,24 @@
                             <span class="info-value">{{ user.location }}</span>
                         </div>
                     </div>
+                </div>
 
-                    <div class="info-row">
-                        <i class="bi bi-person info-icon"></i>
-                        <div class="info-content">
-                            <span class="info-label">Gender</span>
-                            <span class="info-value">{{ user.gender }}</span>
-                        </div>
+                <!-- User Meta Info Row -->
+                <div class="user-meta-row">
+                    <div class="meta-item">
+                        <span class="meta-dot meta-dot-gray"></span>
+                        <span class="meta-label">Gender:</span>
+                        <span class="meta-value">{{ user.gender }}</span>
                     </div>
-
-                    <div class="info-row">
-                        <i class="bi bi-calendar info-icon"></i>
-                        <div class="info-content">
-                            <span class="info-label">Date of Birth</span>
-                            <span class="info-value">{{ user.dob }}</span>
-                        </div>
+                    <div class="meta-item">
+                        <span class="meta-dot meta-dot-gray"></span>
+                        <span class="meta-label">DOB:</span>
+                        <span class="meta-value">{{ user.dob | date: 'MMM d, yyyy' }}</span>
                     </div>
-
-                    <div class="info-row">
-                        <i class="bi bi-clock-history info-icon"></i>
-                        <div class="info-content">
-                            <span class="info-label">Member Since</span>
-                            <span class="info-value">{{ user.joined }}</span>
-                        </div>
+                    <div class="meta-item">
+                        <span class="meta-dot meta-dot-green"></span>
+                        <span class="meta-label">Joined</span>
+                        <span class="meta-value">{{ user.joined | date: 'MMM d, yyyy' }}</span>
                     </div>
                 </div>
 
